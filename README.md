@@ -31,13 +31,13 @@ tt.print_types()
 Output looks like this:
 
 ~~~
-lib/python2.7/inspect.py:155 isgeneratorfunction   # type: (function) -> bool
+lib/python2.7/inspect.py:155 isgeneratorfunction   # type: (Callable) -> bool
 lib/python2.7/UserDict.py:103 __contains__     # type: (str) -> bool
 lib/python2.7/UserDict.py:91 get   # type: (str, Union[None, int]) -> Union[None, int]
 lib/python2.7/encodings/__init__.py:49 normalize_encoding      # type: (str) -> str
-lib/python2.7/encodings/__init__.py:71 search_function # type: (str) -> Tuple[builtin_function_or_method, function, classobj, classobj]
+lib/python2.7/encodings/__init__.py:71 search_function # type: (str) -> Tuple[Callable, Callable, classobj, classobj]
 lib/python2.7/encodings/utf_8.py:15 decode     # type: (Union[buffer, str], str) -> Tuple[unicode, int]
-lib/python2.7/encodings/utf_8.py:33 getregentry        # type: () -> Tuple[builtin_function_or_method, function, classobj, classobj]
+lib/python2.7/encodings/utf_8.py:33 getregentry        # type: () -> Tuple[Callable, Callable, classobj, classobj]
 lib/python2.7/posixpath.py:120 dirname # type: (str) -> str
 lib/python2.7/posixpath.py:329 normpath        # type: (str) -> str
 lib/python2.7/posixpath.py:358 abspath # type: (str) -> str
@@ -61,7 +61,7 @@ It works, but:
 * It doesn't handle functions returning multiple lengths of tuples very well. It produces a union of each length it's seen.
 * Doesn't simplify `Union[T, None]` to `Optional[T]`.
 * It's poorly tested.
-* Things that raise exceptions will include `None` among their return types, even if None is never otherwise returned.
+* Things that raise exceptions will include `None` among their return types, even if `None` is never otherwise returned.
 * Probably doesn't handle `@classmethod` correctly.
 
 # License
