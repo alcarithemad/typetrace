@@ -2,6 +2,10 @@ import inspect
 import sys
 
 import collections
+if sys.version_info.major == 2:
+    Callable = collections.Callable
+elif sys.version_info.major == 3:
+    Callable = collections.abc.Callable
 
 
 def function_id(frame):
@@ -97,6 +101,8 @@ def format_types(t):
             return 'Dict[' + format_types(t[1]) + ', ' + format_types(t[2]) + ']'
     elif t == type(None):
         return 'None'
+    elif issubclass(t, Callable):
+        return 'Callable'
     else:
         return t.__name__
 
@@ -146,6 +152,7 @@ if __name__ == '__main__':
     baz(x=2)
     kwa()
     kwa(1, '', a=(1, ''), b={'': None})
+    kwa(input)
 
     tt.end_trace()
 
